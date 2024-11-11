@@ -1,4 +1,8 @@
 # PEC2: TECNICAS DE VISUALIZACION
+# DESCRIPCIÓN DE LA PRÁCTICA
+
+Elavorar las siguietes visualizaciones:
+
 * La visualización **Line Chart** ha sido creada en Tableau y está disponible en el siguiente enlace:
   https://public.tableau.com/app/profile/imanol.p.rez/viz/LineChartVivienda_Turstica/Hoja1
 
