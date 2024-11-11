@@ -1,4 +1,4 @@
-# PEC2: TECNICAS DE VISUALIZACION
+# PEC2: TÉCNICAS DE VISUALIZACIÓN
 # DESCRIPCIÓN DE LA PRÁCTICA
 
 Describir, crear y publicar las siguientes técnicas de visualización de datos, Line Chart, Arc Diagram y Chord Diagram, para conjuntos de datos adecuados a dichas técnicas. Puesto que, en esta práctica, se pretende ir de la visualización al dato, deseamos comprender y familiarizarnos con la esencia de cada técnica. 
