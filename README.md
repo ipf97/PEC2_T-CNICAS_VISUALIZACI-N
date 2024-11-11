@@ -9,6 +9,6 @@
   * https://ipf97.github.io/PEC2_T-CNICAS_VISUALIZACI-N/CHORD_DIAGRAM.html
 
 # DESCRIPCIÓN DEL REPOSITORIO
-* Line Chart: evolución de concesiónes de licecencias para viviendas de uso Turístico en la Ciudad de Madrid
-* Arc Diagram: tipos de represión por provincia de la Comunidad de Valencia
-* Chord Diagram: Superficie de parques empresariales por comarca y provincia de la Comunidad de Valencia
+* **Line Chart:** evolución de concesiónes de licecencias para viviendas de uso Turístico en la Ciudad de Madrid
+* **Arc Diagram:** tipos de represión por provincia de la Comunidad de Valencia
+* **Chord Diagram:** Superficie de parques empresariales por comarca y provincia de la Comunidad de Valencia
