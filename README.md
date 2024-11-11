@@ -4,7 +4,9 @@
 
   Enlace datos: https://datos.gob.es/es/catalogo/l01280796-viviendas-de-uso-turistico-con-licencia
   
-* Visualizaciones **Arc Diagram** y **Chord Diagram** para conjuntos de datos acordes a dichas técnicas.
+* Visualizaciones **Arc Diagram** y **Chord Diagram** para conjuntos de datos acordes a dichas técnicas:
+  * https://ipf97.github.io/PEC2_T-CNICAS_VISUALIZACI-N/ARC_DIAGRAM.html
+  * https://ipf97.github.io/PEC2_T-CNICAS_VISUALIZACI-N/CHORD_DIAGRAM.html
 
 # DESCRIPCIÓN DEL REPOSITORIO
 * Line Chart: evolución de concesiónes de licecencias para viviendas de uso Turístico en la Ciudad de Madrid
