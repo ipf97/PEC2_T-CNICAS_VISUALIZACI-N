@@ -1,0 +1,100 @@
+---
+title: "ARC DIAGRAM"
+author: "Imanol Pérez Fernández"
+date: "2024-11-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Enlace Visualización
+
+
+
+# Enlace conjunto de datos .csv
+
+https://datos.gob.es/es/catalogo/a10002983-mapa-de-la-localizacion-en-la-comunitat-valenciana-de-las-fosas-de-la-represion-en-retaguardia-republicana-represion-franquista-durante-la-dictadura-combatientes-en-la-guerra-civil-y-victimas-de-bombardeos
+
+# Visualización Arc Diagram
+
+```{r}
+library(igraph)
+library(ggraph)
+library(tidyverse)
+
+# Cargar el archivo CSV
+data <- read.csv("/Users/imanol/Downloads/16_MemoriaDemocratica.csv", encoding = "latin1")
+
+# Filtrar datos para eliminar filas con tipo "Desconocida"
+data <- data %>%
+  filter(tipo_num != "Desconocida")
+
+# Crear el conjunto de datos de relaciones entre municipios dentro de la misma provincia y tipo de represión
+data_rel <- data %>%
+  select(provincia_ca, nom_mun_va, tipo_num) %>%
+  group_by(provincia_ca, tipo_num) %>%
+  summarise(municipios = list(nom_mun_va), total_municipios = n(), .groups = 'drop') %>%
+  unnest(municipios) %>%
+  group_by(provincia_ca, tipo_num, total_municipios) %>%
+  expand(municipios, municipios2 = municipios) %>%
+  filter(municipios < municipios2) %>%
+  ungroup()
+
+# Crear el grafo y añadir atributos
+grafo <- graph_from_data_frame(data_rel, directed = FALSE)
+E(grafo)$tipo_num <- data_rel$tipo_num  # Añadir 'tipo_num' como atributo
+E(grafo)$weight <- data_rel$total_municipios  # Usar 'total_municipios' como grosor de línea
+
+# Definir una paleta de colores accesible
+color_palette <- c("1" = "#0072B2", "2" = "#D55E00", "3" = "#009E73", "4" = "#F0E442", "6" = "#CC79A7")
+# Generar el diagrama de arcos con `ggraph`, usando `total_municipios` para el grosor de las relaciones
+plot_grafo <- ggraph(grafo, layout = "linear") + 
+  geom_edge_arc(aes(color = as.factor(tipo_num), width = weight), alpha = 0.7) + 
+  geom_node_text(aes(label = name), angle = 0, hjust = -0.1, vjust = 0.5, size = 3) + 
+  scale_edge_width_continuous(range = c(0.5, 4), guide = guide_legend(title = "Nº Municipios", 
+                                                                      override.aes = list(alpha = 1))) +  # Ajustar el grosor del borde
+  scale_edge_color_manual(values = color_palette, guide = guide_legend(title = "Represión", 
+                                                                       override.aes = list(edge_width = 2))) +  # Añadir la paleta de colores
+  theme_void() +
+  theme(
+    legend.position = "bottom",  # Colocar la leyenda abajo
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 14),  # Título centrado y en negrita
+    plot.subtitle = element_text(hjust = 0.5, size = 10)  # Subtítulo centrado
+  ) +
+  labs(title = "Relación por provincia y tipo de represión",
+       subtitle = "Municipios conectados por el mismo tipo de represión en la misma provincia",
+       edge_color = "Represión")
+
+# Mostrar el gráfico
+print(plot_grafo)
+```
+
+## Leyenda
+
+```{r}
+library(gridExtra)
+library(grid)
+
+# Crear la tabla de leyenda para `tipo_num`
+leyenda_data <- data.frame(
+  "Tipo de Represión" = c("1", "2", "3", "4", "6"),
+  "Descripción" = c("Represión franquista durante la guerra civil",
+                    "Represión franquista durante la dictadura",
+                    "Represión en la retaguardia republicana",
+                    "Víctimas de bombardeos",
+                    "Otros tipos de represión")
+)
+
+# Generar y mostrar la tabla de leyenda
+leyenda_tabla <- tableGrob(leyenda_data, rows = NULL, theme = ttheme_minimal(
+  core = list(bg_params = list(fill = NA, col = NA)),  # Fondo transparente
+  colhead = list(bg_params = list(fill = NA, col = NA)) # Fondo transparente para los encabezados
+))
+
+grid.draw(leyenda_tabla)
+```
+
+# Conclusión 
+
+El Arc Diagram es la visualización más adecuada para estos datos, ya que permite observar las conexiones entre municipios y tipos de represión en cada provincia. Esta técnica destaca la relación entre categorías mediante arcos que varían en grosor, facilitando la identificación de provincias con mayor o menor intensidad de eventos históricos. Al organizar los datos en un mismo eje, el diagrama de arcos ofrece una representación clara de los patrones regionales de represión, simplificando la interpretación de complejas conexiones históricas.
