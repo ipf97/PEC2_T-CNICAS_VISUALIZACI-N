@@ -1,14 +1,14 @@
 # PEC2: TECNICAS DE VISUALIZACION
 # DESCRIPCIÓN DE LA PRÁCTICA
 
-Elavorar las siguietes visualizaciones:
+Describir, crear y publicar las siguietes visualizaciones:
 
 * La visualización **Line Chart** ha sido creada en Tableau y está disponible en el siguiente enlace:
   https://public.tableau.com/app/profile/imanol.p.rez/viz/LineChartVivienda_Turstica/Hoja1
 
   Enlace datos: https://datos.gob.es/es/catalogo/l01280796-viviendas-de-uso-turistico-con-licencia
   
-* Visualizaciones **Arc Diagram** y **Chord Diagram** para conjuntos de datos acordes a dichas técnicas:
+* Las visualizaciones **Arc Diagram** y **Chord Diagram** en codigo RMarkdown:
   * https://ipf97.github.io/PEC2_T-CNICAS_VISUALIZACI-N/ARC_DIAGRAM.html
   * https://ipf97.github.io/PEC2_T-CNICAS_VISUALIZACI-N/CHORD_DIAGRAM.html
 
