@@ -1,7 +1,7 @@
 # PEC2: TECNICAS DE VISUALIZACION
 # DESCRIPCIÓN DE LA PRÁCTICA
 
-Visualizaciones Line Chart, Arc Diagram y Chord Diagram para conjuntos de datos adecuados a dichas técnicas. En esta práctica se pretende ir de la visualización al dato, en realidad es a la inversa. 
+Describir, crear y publicar las siguientes técnica de visualización de datos, Line Chart, Arc Diagram y Chord Diagram, para conjuntos de datos adecuados a dichas técnicas. Puesto que, en esta práctica, se pretende ir de la visualización al dato, y no la inversa, dado se pretende comprender y familiarizarse con la esencia de cada técnica. 
 
 * La visualización **Line Chart** ha sido creada en Tableau y está disponible en el siguiente enlace:
   https://public.tableau.com/app/profile/imanol.p.rez/viz/LineChartVivienda_Turstica/Hoja1
