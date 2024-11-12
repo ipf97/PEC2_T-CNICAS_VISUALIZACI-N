@@ -1,0 +1,106 @@
+---
+title: "CHORD DIAGRAM"
+author: "Imanol Pérez Fernández"
+date: "2024-11-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Enlace conjunto de datos .csv
+
+https://datos.gob.es/es/catalogo/a10002983-parques-empresariales-de-la-comunitat-valenciana-2021 
+
+# Visualización 
+
+```{r}
+library(circlize)
+library(dplyr)
+
+# Cargar el archivo CSV
+data <- read.csv("/Users/imanol/Downloads/parcs_empresarials_cv_613.csv", encoding = "latin1")
+
+# Preparar los datos para el diagrama de acordes
+data_subset <- data[, c("provincia", "comarca", "total_supe..m..")]
+data_subset <- data_subset[!is.na(data_subset$total_supe..m..), ]
+
+# Crear una tabla de contingencia usando la superficie total como peso de conexión
+chord_data <- data_subset %>%
+  group_by(provincia, comarca) %>%
+  summarise(total_supe = sum(total_supe..m..), .groups = "drop")
+
+# Convertir a matriz para el diagrama de acordes
+chord_matrix <- xtabs(total_supe ~ provincia + comarca, data = chord_data)
+
+# Definir colores amigables para daltónicos
+colorblind_palette <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#999999")
+
+# Asignar colores a las provincias y comarcas, distribuyendo los colores de la paleta
+provincia_colors <- setNames(rep(colorblind_palette, length.out = length(unique(data_subset$provincia))),
+                             unique(data_subset$provincia))
+comarca_colors <- setNames(rep(colorblind_palette, length.out = length(unique(data_subset$comarca))),
+                           unique(data_subset$comarca))
+
+# Generar el diagrama de acordes
+circos.clear()
+circos.par(start.degree = 90, gap.degree = 5, track.margin = c(0.01, 0.01))
+
+chordDiagram(
+  as.data.frame(chord_matrix),
+  transparency = 0.5,
+  annotationTrack = "grid",
+  preAllocateTracks = 1,
+  directional = 1,
+  direction.type = c("diffHeight", "arrows"),
+  link.arr.type = "big.arrow",
+  annotationTrackHeight = c(0.05, 0.1),
+  grid.col = c(provincia_colors, comarca_colors)
+)
+
+# Añadir etiquetas de texto en los sectores
+circos.trackPlotRegion(
+  track.index = 1,
+  bg.border = NA,
+  panel.fun = function(x, y) {
+    sector.name = get.cell.meta.data("sector.index")
+    xlim = get.cell.meta.data("xlim")
+    ylim = get.cell.meta.data("ylim")
+    circos.text(
+      x = mean(xlim), y = ylim[1] + .1,
+      labels = sector.name,
+      facing = "clockwise",
+      niceFacing = TRUE,
+      adj = c(0, 0.5),
+      cex = 0.6
+    )
+  }
+)
+
+# Título del gráfico
+title("Superficie Total por Provincia y Comarca en la Comunidad Valenciana")
+circos.clear()
+```
+
+# Leyenda
+
+```{r}
+# Generar la leyenda
+plot.new()
+legend(
+  "center", 
+  legend = c(names(provincia_colors), names(comarca_colors)),
+  fill = c(provincia_colors, comarca_colors),
+  title = "Provincias y Comarcas",
+  cex = 0.6,
+  bty = "n",
+  ncol = 2
+)
+```
+
+# Conclusión 
+
+Chord Diagram es una técnica de visualización idónea para estos datos, ya que representa claramente las relaciones entre provincias y comarcas en términos de superficie de parques empresariales. 
+
+Permite comparar la distribución geográfica y el tamaño de los parques, destacando las áreas con mayor concentración industrial. Esta visualización facilita una comprensión eficiente de la distribución espacial, fundamental para la planificación territorial, por ejemplo.
