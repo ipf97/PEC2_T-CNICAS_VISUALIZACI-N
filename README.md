@@ -13,6 +13,7 @@ Describir, crear y publicar las siguientes técnicas de visualización de datos,
   * https://ipf97.github.io/PEC2_T-CNICAS_VISUALIZACI-N/CHORD_DIAGRAM.html
 
 # DESCRIPCIÓN DEL REPOSITORIO
-* **Line Chart:** Evolución de concesiónes de licecencias para viviendas de uso Turístico en la Ciudad de Madrid
-* **Arc Diagram:** Tipos de represión por provincia de la Comunidad de Valencia
-* **Chord Diagram:** Superficie de parques empresariales por comarca y provincia de la Comunidad de Valencia
+* **Line Chart:** Evolución de concesiónes de licecencias para viviendas de uso Turístico en la Ciudad de Madrid.
+* **Arc Diagram:** Tipos de represión por provincia de la Comunidad de Valencia.
+* **Chord Diagram:** Superficie de parques empresariales por comarca y provincia de la Comunidad de Valencia.
+* **Pérez_Fernández_Imanol_PEC2.mov:** vídeo en el que se desarrollan los contenidos solicitados en la PEC2 de la asignatura Visualización de Datos del Máster en Ciencia de Datos de la UOC.
